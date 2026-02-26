@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YatraBandhu</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<!-- ═══ STEP 1: Replace the Firebase config below with your own from Firebase Console ═══ -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, push, onValue, remove, update, get }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+  // ▼▼▼ PASTE YOUR FIREBASE CONFIG HERE ▼▼▼
+
+  const firebaseConfig = {
+  apiKey: "AIzaSyDx6WoP9_tihoGbRy9rL59lN2kYYSLf1d0",
+  authDomain: "yatrabandhu-9b7c9.firebaseapp.com",
+  databaseURL:       "https://yatraBandhu-default-rtdb.firebaseio.com",
+  projectId: "yatrabandhu-9b7c9",
+  storageBucket: "yatrabandhu-9b7c9.firebasestorage.app",
+  messagingSenderId: "36265955189",
+  appId: "1:36265955189:web:ccea3aa9988ac8927dcd3c",
+  measurementId: "G-HDV27TZGD5"
+};
+  // ▲▲▲ END OF CONFIG ▲▲▲
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getDatabase(app);
+  window._fb = { db, ref, push, onValue, remove, update, get };
+  window.dispatchEvent(new Event('firebase-ready'));
+</script>
+
+<style>
+  :root{--teal:#0a9396;--teal-dark:#005f73;--gold:#e9c46a;--coral:#f4a261;--dark:#001219;--mid:#94d2bd;}
+  *{box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:var(--dark);min-height:100vh;overflow-x:hidden;}
+
+  /* Background */
+  .bg-layer{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,#005f7355 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 80%,#0a939644 0%,transparent 55%),radial-gradient(ellipse 40% 40% at 60% 30%,#e9c46a22 0%,transparent 50%),linear-gradient(160deg,#001219 0%,#012a36 50%,#001a20 100%);}
+  .bg-layer::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg transform='translate(8,8)' opacity='0.13'%3E%3Crect x='2' y='6' width='22' height='10' rx='2' fill='%2394d2bd'/%3E%3Crect x='6' y='2' width='12' height='7' rx='1.5' fill='%2394d2bd'/%3E%3Ccircle cx='6' cy='17' r='3' fill='%23001219'/%3E%3Ccircle cx='6' cy='17' r='1.5' fill='%2394d2bd'/%3E%3Ccircle cx='20' cy='17' r='3' fill='%23001219'/%3E%3Ccircle cx='20' cy='17' r='1.5' fill='%2394d2bd'/%3E%3C/g%3E%3Cg transform='translate(82,6)' opacity='0.11'%3E%3Cpolygon points='15,0 30,12 0,12' fill='%23e9c46a'/%3E%3Crect x='3' y='12' width='24' height='16' fill='%23e9c46a'/%3E%3Crect x='11' y='18' width='8' height='10' fill='%23001219'/%3E%3Crect x='5' y='15' width='7' height='7' fill='%23001219' opacity='0.5'/%3E%3Crect x='18' y='15' width='7' height='7' fill='%23001219' opacity='0.5'/%3E%3C/g%3E%3Cg transform='translate(48,52) scale(-1,1) translate(-26,0)' opacity='0.09'%3E%3Crect x='2' y='6' width='22' height='10' rx='2' fill='%23e9c46a'/%3E%3Crect x='6' y='2' width='12' height='7' rx='1.5' fill='%23e9c46a'/%3E%3Ccircle cx='6' cy='17' r='3' fill='%23001219'/%3E%3Ccircle cx='6' cy='17' r='1.5' fill='%23e9c46a'/%3E%3Ccircle cx='20' cy='17' r='3' fill='%23001219'/%3E%3Ccircle cx='20' cy='17' r='1.5' fill='%23e9c46a'/%3E%3C/g%3E%3Cg transform='translate(6,78)' opacity='0.10'%3E%3Cpolygon points='13,0 26,11 0,11' fill='%2394d2bd'/%3E%3Crect x='2' y='11' width='22' height='15' fill='%2394d2bd'/%3E%3Crect x='9' y='17' width='7' height='9' fill='%23001219'/%3E%3Crect x='3' y='13' width='6' height='6' fill='%23001219' opacity='0.45'/%3E%3Crect x='17' y='13' width='6' height='6' fill='%23001219' opacity='0.45'/%3E%3C/g%3E%3Cg transform='translate(78,82)' opacity='0.12'%3E%3Crect x='2' y='6' width='22' height='10' rx='2' fill='%2394d2bd'/%3E%3Crect x='6' y='2' width='12' height='7' rx='1.5' fill='%2394d2bd'/%3E%3Ccircle cx='6' cy='17' r='3' fill='%23001219'/%3E%3Ccircle cx='6' cy='17' r='1.5' fill='%2394d2bd'/%3E%3Ccircle cx='20' cy='17' r='3' fill='%23001219'/%3E%3Ccircle cx='20' cy='17' r='1.5' fill='%2394d2bd'/%3E%3C/g%3E%3Ccircle cx='60' cy='60' r='1.2' fill='%230a9396' opacity='0.18'/%3E%3Ccircle cx='36' cy='36' r='1' fill='%23e9c46a' opacity='0.15'/%3E%3Ccircle cx='90' cy='48' r='1' fill='%2394d2bd' opacity='0.13'/%3E%3Ccircle cx='24' cy='96' r='1' fill='%23e9c46a' opacity='0.12'/%3E%3C/svg%3E");background-size:120px 120px;}
+  .wrapper{position:relative;z-index:1;}
+
+  /* Header */
+  header{padding:60px 20px 40px;text-align:center;}
+  .brand-badge{display:inline-block;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;font-size:0.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;padding:6px 18px;border-radius:30px;margin-bottom:20px;}
+  h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,4.2rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:16px;}
+  h1 span{color:var(--gold);}
+  .tagline{color:var(--mid);font-size:1.05rem;font-weight:300;}
+
+  /* Firebase status bar */
+  #fbStatus{position:fixed;top:0;left:0;right:0;z-index:10000;padding:8px;text-align:center;font-size:0.8rem;font-weight:600;display:none;}
+  #fbStatus.connecting{display:block;background:#005f73;color:#94d2bd;}
+  #fbStatus.error{display:block;background:#8b1a1a;color:#fca5a5;}
+  #fbStatus.ok{display:none;}
+
+  /* Main buttons */
+  .main-options{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;padding:20px 20px 60px;}
+  .main-btn{position:relative;border:none;outline:none;cursor:pointer;border-radius:20px;padding:36px 44px;width:270px;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.08);backdrop-filter:blur(16px);color:#fff;transition:all 0.35s ease;overflow:hidden;text-align:center;}
+  .main-btn::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity 0.35s;border-radius:20px;}
+  .main-btn.pool-btn::before{background:linear-gradient(135deg,#005f73aa,#0a939688);}
+  .main-btn.accom-btn::before{background:linear-gradient(135deg,#e9c46a55,#f4a26155);}
+  .main-btn:hover::before,.main-btn.active::before{opacity:1;}
+  .main-btn:hover,.main-btn.active{border-color:rgba(255,255,255,0.25);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+  .main-btn.active{transform:translateY(-4px) scale(1.02);}
+  .btn-icon{font-size:2.4rem;margin-bottom:14px;display:block;}
+  .pool-btn .btn-icon{color:var(--mid);}
+  .accom-btn .btn-icon{color:var(--gold);}
+  .main-btn h3{font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:6px;}
+  .main-btn p{font-size:0.82rem;color:rgba(255,255,255,0.55);margin:0;line-height:1.4;}
+
+  /* Panel */
+  .panel-area{padding:0 20px 80px;}
+  .panel-card{max-width:960px;margin:0 auto;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.08);backdrop-filter:blur(20px);border-radius:24px;overflow:hidden;animation:slideUp 0.4s ease forwards;}
+  @keyframes slideUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+  .panel-header{padding:28px 32px 20px;border-bottom:1px solid rgba(255,255,255,0.07);}
+  .panel-header h2{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;margin:0;}
+  .panel-header p{color:var(--mid);font-size:0.88rem;margin:6px 0 0;}
+
+  /* Tabs */
+  .role-tabs{display:flex;gap:10px;padding:20px 32px;border-bottom:1px solid rgba(255,255,255,0.07);flex-wrap:wrap;}
+  .role-tab{flex:1;min-width:140px;padding:13px 10px;border-radius:12px;border:1.5px solid rgba(255,255,255,0.12);background:transparent;color:rgba(255,255,255,0.6);font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:500;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;justify-content:center;gap:7px;text-align:center;}
+  .role-tab:hover{border-color:var(--teal);color:#fff;}
+  .role-tab.active{background:linear-gradient(135deg,var(--teal-dark),var(--teal));border-color:var(--teal);color:#fff;box-shadow:0 6px 24px rgba(10,147,150,0.35);}
+  .accom-panel .role-tab:hover{border-color:var(--gold);}
+  .accom-panel .role-tab.active{background:linear-gradient(135deg,#b5880a,var(--gold));border-color:var(--gold);box-shadow:0 6px 24px rgba(233,196,106,0.3);color:var(--dark);}
+
+  /* Forms */
+  .form-area{padding:28px 32px 32px;}
+  .form-section{display:none;}
+  .form-section.active{display:block;animation:slideUp 0.3s ease;}
+  label{display:block;font-size:0.78rem;font-weight:600;color:var(--mid);letter-spacing:0.5px;margin-bottom:7px;text-transform:uppercase;}
+  .form-control,.form-select{background:rgba(255,255,255,0.06)!important;border:1.5px solid rgba(255,255,255,0.1)!important;border-radius:10px!important;color:#fff!important;padding:12px 16px!important;font-family:'DM Sans',sans-serif!important;font-size:0.92rem!important;transition:border-color 0.2s!important;}
+  .form-control:focus,.form-select:focus{border-color:var(--teal)!important;box-shadow:0 0 0 3px rgba(10,147,150,0.15)!important;background:rgba(255,255,255,0.08)!important;}
+  .form-control::placeholder{color:rgba(255,255,255,0.3)!important;}
+  .form-section-label{font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin:20px 0 14px;display:flex;align-items:center;gap:10px;}
+  .form-section-label::before,.form-section-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08);}
+  .price-range-row{display:flex;gap:10px;align-items:center;}
+  .price-range-row input{flex:1;}
+  .price-range-sep{color:rgba(255,255,255,0.4);font-size:0.85rem;white-space:nowrap;padding-top:4px;}
+  .info-note{background:rgba(10,147,150,0.1);border:1px solid rgba(10,147,150,0.25);border-radius:10px;padding:10px 14px;font-size:0.82rem;color:var(--mid);display:flex;gap:8px;align-items:flex-start;margin-bottom:18px;}
+  .info-note i{margin-top:2px;flex-shrink:0;}
+  .info-note.gold-note{background:rgba(233,196,106,0.08);border-color:rgba(233,196,106,0.25);color:var(--gold);}
+  .submit-btn{width:100%;padding:15px;border-radius:12px;border:none;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.3s;margin-top:8px;}
+  .submit-btn.teal{background:linear-gradient(135deg,var(--teal-dark),var(--teal));color:#fff;}
+  .submit-btn.gold{background:linear-gradient(135deg,#b5880a,var(--gold));color:var(--dark);}
+  .submit-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,0.3);}
+  .submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+
+  /* Listings */
+  .my-listings-header{display:flex;align-items:center;gap:10px;margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.07);margin-bottom:14px;}
+  .my-listings-header span{font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);}
+  .result-card{background:rgba(10,147,150,0.08);border:1px solid rgba(10,147,150,0.22);border-radius:14px;padding:20px 22px;margin-bottom:14px;animation:slideUp 0.3s ease;}
+  .result-card.gold-card{background:rgba(233,196,106,0.07);border-color:rgba(233,196,106,0.22);}
+  .result-card.request-card{background:rgba(244,162,97,0.07);border-color:rgba(244,162,97,0.25);}
+  .result-card.accom-request-card{background:rgba(148,210,189,0.06);border-color:rgba(148,210,189,0.22);}
+  .result-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+  .result-card h5{font-family:'Playfair Display',serif;color:#fff;margin-bottom:8px;font-size:1rem;}
+  .result-meta{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:6px;}
+  .meta-item{display:flex;align-items:center;gap:6px;font-size:0.82rem;color:rgba(255,255,255,0.65);}
+  .meta-item i{color:var(--teal);font-size:0.78rem;}
+  .gold-card .meta-item i{color:var(--gold);}
+  .request-card .meta-item i{color:var(--coral);}
+  .accom-request-card .meta-item i{color:var(--mid);}
+  .badge-price{display:inline-flex;align-items:center;background:var(--teal);color:#fff;border-radius:20px;padding:3px 12px;font-size:0.8rem;font-weight:700;}
+  .badge-price.gold{background:var(--gold);color:var(--dark);}
+  .badge-price.coral{background:var(--coral);color:#fff;}
+  .badge-type{display:inline-flex;align-items:center;gap:4px;border-radius:6px;padding:2px 10px;font-size:0.72rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;}
+  .badge-type.offering{background:rgba(10,147,150,0.25);color:var(--mid);border:1px solid rgba(10,147,150,0.4);}
+  .badge-type.requesting{background:rgba(244,162,97,0.2);color:var(--coral);border:1px solid rgba(244,162,97,0.4);}
+  .badge-type.listing{background:rgba(233,196,106,0.2);color:var(--gold);border:1px solid rgba(233,196,106,0.4);}
+  .badge-type.seeking{background:rgba(148,210,189,0.15);color:var(--mid);border:1px solid rgba(148,210,189,0.3);}
+
+  /* Buttons */
+  .card-actions{display:flex;gap:7px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end;}
+  .btn-edit,.btn-del,.btn-chat{padding:6px 14px;border-radius:8px;border:none;font-size:0.78rem;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:5px;}
+  .btn-edit{background:rgba(10,147,150,0.2);color:var(--mid);border:1px solid rgba(10,147,150,0.35);}
+  .btn-edit:hover{background:rgba(10,147,150,0.4);color:#fff;}
+  .btn-edit.gold-edit{background:rgba(233,196,106,0.15);color:var(--gold);border-color:rgba(233,196,106,0.35);}
+  .btn-del{background:rgba(244,162,97,0.12);color:var(--coral);border:1px solid rgba(244,162,97,0.28);}
+  .btn-del:hover{background:rgba(244,162,97,0.28);}
+  .btn-chat{background:rgba(10,147,150,0.15);color:var(--mid);border:1px solid rgba(10,147,150,0.3);}
+  .btn-chat:hover{background:rgba(10,147,150,0.3);color:#fff;}
+  .btn-chat.gold-chat{background:rgba(233,196,106,0.12);color:var(--gold);border-color:rgba(233,196,106,0.3);}
+  .btn-chat.gold-chat:hover{background:rgba(233,196,106,0.25);}
+
+  /* Edit form */
+  .edit-form{display:none;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.07);}
+  .edit-form.open{display:block;animation:slideUp 0.2s ease;}
+  .edit-form .form-control{font-size:0.85rem!important;padding:9px 12px!important;}
+  .edit-form label{font-size:0.7rem!important;}
+  .btn-save-edit{padding:8px 20px;border-radius:8px;border:none;background:var(--teal);color:#fff;font-size:0.85rem;font-weight:600;cursor:pointer;transition:background 0.2s;}
+  .btn-save-edit:hover{background:var(--teal-dark);}
+  .btn-save-edit.gold{background:var(--gold);color:var(--dark);}
+  .btn-cancel-edit{padding:8px 16px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:rgba(255,255,255,0.45);font-size:0.85rem;cursor:pointer;}
+
+  /* Section titles */
+  .results-section-title{font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin:22px 0 12px;display:flex;align-items:center;gap:10px;}
+  .results-section-title::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08);}
+  .no-result{text-align:center;color:rgba(255,255,255,0.35);font-size:0.88rem;padding:20px 0;}
+
+  /* Chat */
+  .chat-bubble{position:fixed;bottom:28px;right:28px;z-index:9999;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--teal-dark),var(--teal));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4rem;box-shadow:0 6px 24px rgba(10,147,150,0.5);transition:all 0.3s;}
+  .chat-bubble:hover{transform:scale(1.1);}
+  .chat-badge-dot{position:absolute;top:-3px;right:-3px;background:var(--coral);border-radius:50%;width:14px;height:14px;display:none;border:2px solid var(--dark);}
+  .chat-window{position:fixed;bottom:94px;right:28px;z-index:9999;width:340px;max-height:520px;border-radius:20px;background:rgba(0,18,25,0.97);border:1.5px solid rgba(10,147,150,0.3);backdrop-filter:blur(24px);display:none;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.6);animation:slideUp 0.3s ease;}
+  .chat-window.open{display:flex;}
+  .chat-header{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;}
+  .chat-header-info{display:flex;align-items:center;gap:10px;}
+  .chat-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--teal-dark),var(--teal));display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.85rem;}
+  .chat-avatar.gold-avatar{background:linear-gradient(135deg,#b5880a,var(--gold));color:var(--dark);}
+  .chat-title{font-size:0.88rem;font-weight:600;color:#fff;}
+  .chat-subtitle{font-size:0.72rem;color:var(--mid);}
+  .chat-close{background:none;border:none;color:rgba(255,255,255,0.4);cursor:pointer;font-size:1rem;padding:4px;}
+  .chat-close:hover{color:#fff;}
+  .chat-messages{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;min-height:180px;max-height:280px;}
+  .chat-messages::-webkit-scrollbar{width:4px;}
+  .chat-messages::-webkit-scrollbar-thumb{background:rgba(10,147,150,0.4);border-radius:4px;}
+  .msg{max-width:80%;padding:9px 13px;border-radius:12px;font-size:0.83rem;line-height:1.45;}
+  .msg.incoming{background:rgba(10,147,150,0.15);border:1px solid rgba(10,147,150,0.25);color:#fff;align-self:flex-start;border-bottom-left-radius:4px;}
+  .msg.outgoing{background:linear-gradient(135deg,var(--teal-dark),var(--teal));color:#fff;align-self:flex-end;border-bottom-right-radius:4px;}
+  .msg.system{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.4);font-size:0.74rem;align-self:center;text-align:center;border-radius:8px;padding:5px 10px;}
+  .msg-time{font-size:0.65rem;opacity:0.5;margin-top:3px;}
+  .chat-input-row{padding:12px 14px;border-top:1px solid rgba(255,255,255,0.07);display:flex;gap:8px;}
+  .chat-input{flex:1;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;padding:9px 12px;font-size:0.85rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;}
+  .chat-input:focus{border-color:var(--teal);}
+  .chat-input::placeholder{color:rgba(255,255,255,0.3);}
+  .chat-send{background:var(--teal);border:none;border-radius:10px;color:#fff;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.85rem;flex-shrink:0;}
+  .chat-send:hover{background:var(--teal-dark);}
+  .chat-privacy-note{padding:7px 16px;font-size:0.7rem;color:rgba(255,255,255,0.28);text-align:center;border-top:1px solid rgba(255,255,255,0.05);}
+  .no-listing-selected{padding:28px 16px;text-align:center;color:rgba(255,255,255,0.35);font-size:0.84rem;}
+
+  /* Loading spinner */
+  .spinner{display:inline-block;width:18px;height:18px;border:2px solid rgba(255,255,255,0.2);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:6px;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  @media(max-width:640px){
+    .main-btn{width:100%;max-width:340px;}
+    .role-tabs,.form-area,.panel-header{padding-left:18px;padding-right:18px;}
+    .result-card-top{flex-direction:column;}
+    .role-tab{font-size:0.8rem;padding:10px 8px;}
+    .chat-window{width:calc(100vw - 40px);right:20px;}
+  }
+</style>
+</head>
+<body>
+<div class="bg-layer"></div>
+
+<!-- Firebase connection status -->
+<div id="fbStatus" class="connecting"><span class="spinner"></span> Connecting to live database…</div>
+
+<div class="wrapper">
+  <header>
+    <div class="brand-badge"><i class="fas fa-route me-1"></i> YatraBandhu</div>
+    <h1>Connect. Share.<br><span>Travel Together.</span></h1>
+    <p class="tagline">Find rides &amp; accommodation with your community</p>
+  </header>
+
+  <div class="main-options">
+    <button class="main-btn pool-btn" onclick="showPanel('pool',this)">
+      <span class="btn-icon"><i class="fas fa-car-side"></i></span>
+      <h3>Share Pool</h3>
+      <p>List or find shared rides to your destination</p>
+    </button>
+    <button class="main-btn accom-btn" onclick="showPanel('accom',this)">
+      <span class="btn-icon"><i class="fas fa-building"></i></span>
+      <h3>Accommodation</h3>
+      <p>List or discover available rooms &amp; stays</p>
+    </button>
+  </div>
+
+  <div class="panel-area" id="panelArea" style="display:none;">
+
+    <!-- ══════════ SHARE POOL ══════════ -->
+    <div class="panel-card" id="poolPanel" style="display:none;">
+      <div class="panel-header">
+        <h2><i class="fas fa-car-side me-2" style="color:var(--mid)"></i>Share Pool</h2>
+        <p>List a ride, post a request, or search listings from the whole community</p>
+      </div>
+      <div class="role-tabs">
+        <button class="role-tab active" onclick="switchTab('pool','list-ride',this)"><i class="fas fa-plus-circle"></i> List a Ride</button>
+        <button class="role-tab" onclick="switchTab('pool','looking-ride',this)"><i class="fas fa-hand-paper"></i> Looking for a Ride</button>
+        <button class="role-tab" onclick="switchTab('pool','find-ride',this)"><i class="fas fa-search"></i> Find a Ride</button>
+      </div>
+      <div class="form-area">
+
+        <!-- List a Ride -->
+        <div class="form-section active" id="pool-list-ride">
+          <div class="info-note">
+            <i class="fas fa-info-circle"></i>
+            <span>Your listing is <strong>visible to everyone</strong> in real time. It will be <strong>automatically removed</strong> once the ride date &amp; time has passed. Your mobile number is kept private — people contact you via chat only.</span>
+          </div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label><i class="fas fa-phone me-1"></i>Your Mobile <span style="color:rgba(255,255,255,0.28);font-size:0.68rem">(private — never shown)</span></label>
+              <input type="tel" class="form-control" id="p-mobile" placeholder="+1 000 000 0000">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-tag me-1"></i>Price Range ($)</label>
+              <div class="price-range-row">
+                <input type="number" class="form-control" id="p-price-min" placeholder="Min e.g. 10" min="0">
+                <span class="price-range-sep">to</span>
+                <input type="number" class="form-control" id="p-price-max" placeholder="Max e.g. 100" min="0">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-map-marker-alt me-1"></i>From</label>
+              <input type="text" class="form-control" id="p-from" placeholder="Departure location">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-flag-checkered me-1"></i>To</label>
+              <input type="text" class="form-control" id="p-to" placeholder="Destination">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-calendar me-1"></i>Date</label>
+              <input type="date" class="form-control" id="p-date">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-clock me-1"></i>Time</label>
+              <input type="time" class="form-control" id="p-time">
+            </div>
+          </div>
+          <button class="submit-btn teal mt-3" id="postRideBtn" onclick="postRide()"><i class="fas fa-plus-circle me-2"></i>Post Ride Offer</button>
+          <div id="pool-post-msg"></div>
+          <div class="my-listings-header"><span><i class="fas fa-list me-2"></i>My Ride Offers</span></div>
+          <div id="my-rides-list"><div class="no-result">No ride offers posted yet.</div></div>
+        </div>
+
+        <!-- Looking for a Ride -->
+        <div class="form-section" id="pool-looking-ride">
+          <div class="info-note">
+            <i class="fas fa-info-circle"></i>
+            <span>Your request is <strong>visible to all drivers</strong> in real time. It will be <strong>automatically removed</strong> after your preferred date &amp; time. Mobile number stays private.</span>
+          </div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label><i class="fas fa-phone me-1"></i>Your Mobile <span style="color:rgba(255,255,255,0.28);font-size:0.68rem">(private — never shown)</span></label>
+              <input type="tel" class="form-control" id="lr-mobile" placeholder="+1 000 000 0000">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-tag me-1"></i>Budget Range ($)</label>
+              <div class="price-range-row">
+                <input type="number" class="form-control" id="lr-budget-min" placeholder="Min" min="0">
+                <span class="price-range-sep">to</span>
+                <input type="number" class="form-control" id="lr-budget-max" placeholder="Max" min="0">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-map-marker-alt me-1"></i>From</label>
+              <input type="text" class="form-control" id="lr-from" placeholder="Pickup location">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-flag-checkered me-1"></i>To</label>
+              <input type="text" class="form-control" id="lr-to" placeholder="Destination">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-calendar me-1"></i>Date</label>
+              <input type="date" class="form-control" id="lr-date">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-clock me-1"></i>Preferred Time</label>
+              <input type="time" class="form-control" id="lr-time">
+            </div>
+          </div>
+          <button class="submit-btn teal mt-3" id="postRideReqBtn" onclick="postRideRequest()"><i class="fas fa-hand-paper me-2"></i>Post Ride Request</button>
+          <div id="pool-req-msg"></div>
+          <div class="my-listings-header"><span><i class="fas fa-list me-2"></i>My Ride Requests</span></div>
+          <div id="my-requests-list"><div class="no-result">No ride requests posted yet.</div></div>
+        </div>
+
+        <!-- Find a Ride -->
+        <div class="form-section" id="pool-find-ride">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label><i class="fas fa-map-marker-alt me-1"></i>From</label>
+              <input type="text" class="form-control" id="u-from" placeholder="Departure location">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-flag-checkered me-1"></i>To</label>
+              <input type="text" class="form-control" id="u-to" placeholder="Destination">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-calendar me-1"></i>Date (optional)</label>
+              <input type="date" class="form-control" id="u-date">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-clock me-1"></i>Time (optional)</label>
+              <input type="time" class="form-control" id="u-time">
+            </div>
+          </div>
+          <button class="submit-btn teal mt-3" onclick="searchRides()"><i class="fas fa-search me-2"></i>Search All Listings</button>
+          <div id="pool-results"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ ACCOMMODATION ══════════ -->
+    <div class="panel-card accom-panel" id="accomPanel" style="display:none;">
+      <div class="panel-header">
+        <h2><i class="fas fa-building me-2" style="color:var(--gold)"></i>Accommodation</h2>
+        <p>List your space, post a room request, or search for both</p>
+      </div>
+      <div class="role-tabs">
+        <button class="role-tab active" onclick="switchTab('accom','list-accom',this)"><i class="fas fa-plus-circle"></i> List Accommodation</button>
+        <button class="role-tab" onclick="switchTab('accom','looking-accom',this)"><i class="fas fa-search-location"></i> Looking for Accommodation</button>
+        <button class="role-tab" onclick="switchTab('accom','find-accom',this)"><i class="fas fa-search"></i> Find Accommodation</button>
+      </div>
+      <div class="form-area">
+
+        <!-- List Accommodation -->
+        <div class="form-section active" id="accom-list-accom">
+          <div class="info-note gold-note">
+            <i class="fas fa-info-circle"></i>
+            <span>Your listing is <strong>visible to everyone</strong> in real time and will be <strong>automatically removed</strong> after the Available From date. Mobile number is kept completely private.</span>
+          </div>
+          <div class="form-section-label">Contact &amp; Price</div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label><i class="fas fa-phone me-1"></i>Your Mobile <span style="color:rgba(255,255,255,0.28);font-size:0.68rem">(private — never shown)</span></label>
+              <input type="tel" class="form-control" id="a-mobile" placeholder="+1 000 000 0000">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-tag me-1"></i>Price Range ($)</label>
+              <div class="price-range-row">
+                <input type="number" class="form-control" id="a-price-min" placeholder="Min" min="0">
+                <span class="price-range-sep">to</span>
+                <input type="number" class="form-control" id="a-price-max" placeholder="Max" min="0">
+              </div>
+            </div>
+          </div>
+          <div class="form-section-label">Location</div>
+          <div class="row g-3">
+            <div class="col-12">
+              <label><i class="fas fa-road me-1"></i>Street Address</label>
+              <input type="text" class="form-control" id="a-address" placeholder="e.g. 123 Main Street">
+            </div>
+            <div class="col-md-5">
+              <label><i class="fas fa-door-open me-1"></i>Apt / Unit <span style="color:rgba(255,255,255,0.25);font-size:0.68rem">(optional)</span></label>
+              <input type="text" class="form-control" id="a-apt" placeholder="Apt 4B">
+            </div>
+            <div class="col-md-7">
+              <label><i class="fas fa-city me-1"></i>City</label>
+              <input type="text" class="form-control" id="a-city" placeholder="e.g. New York">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-map me-1"></i>State / Province</label>
+              <input type="text" class="form-control" id="a-state" placeholder="e.g. New York">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-envelope me-1"></i>ZIP / Postal Code</label>
+              <input type="text" class="form-control" id="a-zip" placeholder="e.g. 10001">
+            </div>
+          </div>
+          <div class="form-section-label">Property Details</div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label><i class="fas fa-bed me-1"></i>Available Rooms</label>
+              <input type="number" class="form-control" id="a-rooms" placeholder="e.g. 2" min="1">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-calendar-check me-1"></i>Available From <span style="color:rgba(255,255,255,0.28);font-size:0.68rem">(listing expires after)</span></label>
+              <input type="date" class="form-control" id="a-avail">
+            </div>
+            <div class="col-12">
+              <label><i class="fas fa-info-circle me-1"></i>Additional Details</label>
+              <textarea class="form-control" id="a-details" rows="2" placeholder="Amenities, rules, notes…"></textarea>
+            </div>
+          </div>
+          <button class="submit-btn gold mt-3" id="postAccomBtn" onclick="postAccom()"><i class="fas fa-plus-circle me-2"></i>List Accommodation</button>
+          <div id="accom-post-msg"></div>
+          <div class="my-listings-header"><span><i class="fas fa-list me-2"></i>My Listed Properties</span></div>
+          <div id="my-accom-list"><div class="no-result">No properties listed yet.</div></div>
+        </div>
+
+        <!-- Looking for Accommodation -->
+        <div class="form-section" id="accom-looking-accom">
+          <div class="info-note gold-note">
+            <i class="fas fa-info-circle"></i>
+            <span>Your request is <strong>visible to all property owners</strong> in real time. It will be <strong>automatically removed</strong> after the Needed From date. Mobile stays private.</span>
+          </div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label><i class="fas fa-phone me-1"></i>Your Mobile <span style="color:rgba(255,255,255,0.28);font-size:0.68rem">(private — never shown)</span></label>
+              <input type="tel" class="form-control" id="la-mobile" placeholder="+1 000 000 0000">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-tag me-1"></i>Budget Range ($)</label>
+              <div class="price-range-row">
+                <input type="number" class="form-control" id="la-budget-min" placeholder="Min" min="0">
+                <span class="price-range-sep">to</span>
+                <input type="number" class="form-control" id="la-budget-max" placeholder="Max" min="0">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-search-location me-1"></i>Preferred City / Area</label>
+              <input type="text" class="form-control" id="la-city" placeholder="e.g. New York">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-bed me-1"></i>Rooms Needed</label>
+              <input type="number" class="form-control" id="la-rooms" placeholder="e.g. 1" min="1">
+            </div>
+            <div class="col-12">
+              <label><i class="fas fa-calendar-check me-1"></i>Needed From <span style="color:rgba(255,255,255,0.28);font-size:0.68rem">(listing expires after)</span></label>
+              <input type="date" class="form-control" id="la-avail">
+            </div>
+            <div class="col-12">
+              <label><i class="fas fa-info-circle me-1"></i>Additional Requirements</label>
+              <textarea class="form-control" id="la-details" rows="2" placeholder="Specific requirements, preferences…"></textarea>
+            </div>
+          </div>
+          <button class="submit-btn gold mt-3" id="postAccomReqBtn" onclick="postAccomRequest()"><i class="fas fa-search-location me-2"></i>Post Accommodation Request</button>
+          <div id="accom-req-msg"></div>
+          <div class="my-listings-header"><span><i class="fas fa-list me-2"></i>My Accommodation Requests</span></div>
+          <div id="my-accom-requests-list"><div class="no-result">No requests posted yet.</div></div>
+        </div>
+
+        <!-- Find Accommodation -->
+        <div class="form-section" id="accom-find-accom">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label><i class="fas fa-search-location me-1"></i>City or Area</label>
+              <input type="text" class="form-control" id="au-location" placeholder="e.g. New York, Chicago…">
+            </div>
+            <div class="col-md-6">
+              <label><i class="fas fa-bed me-1"></i>Rooms Needed (optional)</label>
+              <input type="number" class="form-control" id="au-rooms" placeholder="e.g. 1" min="1">
+            </div>
+          </div>
+          <button class="submit-btn gold mt-3" onclick="searchAccom()"><i class="fas fa-search me-2"></i>Search All Listings</button>
+          <div id="accom-results"></div>
+        </div>
+
+      </div>
+    </div>
+  </div><!-- /panel-area -->
+</div><!-- /wrapper -->
+
+<!-- Chat -->
+<button class="chat-bubble" onclick="toggleChat()" id="chatBubble">
+  <i class="fas fa-comment-dots"></i>
+  <span class="chat-badge-dot" id="chatBadge"></span>
+</button>
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-header-info">
+      <div class="chat-avatar" id="chatAvatar"><i class="fas fa-user"></i></div>
+      <div>
+        <div class="chat-title" id="chatTitle">Select a listing to chat</div>
+        <div class="chat-subtitle" id="chatSubtitle">Contact via YatraBandhu</div>
+      </div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="no-listing-selected">
+      <i class="fas fa-comment-slash" style="font-size:1.8rem;color:rgba(255,255,255,0.18);display:block;margin-bottom:10px"></i>
+      Click <strong style="color:var(--mid)">Chat</strong> on any listing to start a conversation.<br>
+      <small style="color:rgba(255,255,255,0.22)">Phone numbers are never shared for your privacy.</small>
+    </div>
+  </div>
+  <div class="chat-input-row" id="chatInputRow" style="display:none">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Type a message…" onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
+  </div>
+  <div class="chat-privacy-note"><i class="fas fa-lock me-1"></i>Phone numbers are never visible to other users</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════
+//  App state — populated from Firebase once ready
+// ═══════════════════════════════════════════════════════
+let DB, fbRef, fbPush, fbOnValue, fbRemove, fbUpdate, fbGet;
+let fbReady = false;
+
+// Local session key so the poster can see/manage their own post
+const SESSION_KEY = 'yb_session_' + Math.random().toString(36).slice(2);
+
+let allRideOffers   = {};
+let allRideRequests = {};
+let allAccomList    = {};
+let allAccomReq     = {};
+
+// chat
+let activeChatId = null;
+const chatLogs   = {};
+let chatOpen     = false;
+
+// ═══════════════════════════════════════════════════════
+//  Firebase init
+// ═══════════════════════════════════════════════════════
+window.addEventListener('firebase-ready', () => {
+  const fb = window._fb;
+  DB = fb.db; fbRef = fb.ref; fbPush = fb.push;
+  fbOnValue = fb.onValue; fbRemove = fb.remove;
+  fbUpdate = fb.update; fbGet = fb.get;
+  fbReady = true;
+
+  const stat = document.getElementById('fbStatus');
+  stat.className = 'ok';
+
+  // Live listeners — auto-update when anyone posts
+  listenCollection('rideOffers',   data => { allRideOffers   = data||{}; });
+  listenCollection('rideRequests', data => { allRideRequests = data||{}; });
+  listenCollection('accomList',    data => { allAccomList    = data||{}; });
+  listenCollection('accomReq',     data => { allAccomReq     = data||{}; });
+});
+
+function listenCollection(col, cb) {
+  fbOnValue(fbRef(DB, col), snap => {
+    cb(snap.val());
+  }, err => {
+    showDbError(err.message);
+  });
+}
+
+function showDbError(msg) {
+  const s = document.getElementById('fbStatus');
+  s.className = 'error';
+  s.textContent = '⚠️ Database error: ' + msg + ' — check your Firebase config in the HTML file.';
+}
+
+function requireFB() {
+  if (fbReady) return true;
+  alert('Still connecting to the database — please wait a moment and try again.');
+  return false;
+}
+
+// ═══════════════════════════════════════════════════════
+//  Helpers
+// ═══════════════════════════════════════════════════════
+function g(id)  { return document.getElementById(id).value.trim(); }
+function x(s)   { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function fDate(d){ if(!d) return ''; const [y,m,day]=d.split('-'); return `${day}/${m}/${y}`; }
+function fTime(t){ if(!t) return ''; const [h,min]=t.split(':'); const ap=+h>=12?'PM':'AM'; return `${(+h%12)||12}:${min} ${ap}`; }
+
+function flash(id, msg, ok, gold=false) {
+  const c=ok?(gold?'rgba(233,196,106,0.12)':'rgba(10,147,150,0.12)'):'rgba(244,162,97,0.12)';
+  const b=ok?(gold?'rgba(233,196,106,0.3)':'rgba(10,147,150,0.3)'):'rgba(244,162,97,0.3)';
+  const t=ok?(gold?'var(--gold)':'var(--mid)'):'var(--coral)';
+  document.getElementById(id).innerHTML=`<div style="margin-top:10px;padding:10px 14px;border-radius:10px;font-size:0.87rem;background:${c};border:1px solid ${b};color:${t}">${msg}</div>`;
+  setTimeout(()=>{ const el=document.getElementById(id); if(el) el.innerHTML=''; },5000);
+}
+
+function isExpired(r) {
+  if (r.expireTs) return r.expireTs <= Date.now();
+  return false;
+}
+
+function mySession() { return SESSION_KEY; }
+
+// ═══════════════════════════════════════════════════════
+//  Panel / Tab navigation
+// ═══════════════════════════════════════════════════════
+function showPanel(type, btn) {
+  document.querySelectorAll('.main-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panelArea').style.display='block';
+  document.getElementById('poolPanel').style.display='none';
+  document.getElementById('accomPanel').style.display='none';
+  document.getElementById(type==='pool'?'poolPanel':'accomPanel').style.display='block';
+  setTimeout(()=>document.getElementById('panelArea').scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+}
+function switchTab(panel, tab, btn) {
+  btn.closest('.panel-card').querySelectorAll('.role-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  btn.closest('.panel-card').querySelectorAll('.form-section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(`${panel}-${tab}`).classList.add('active');
+}
+
+// ═══════════════════════════════════════════════════════
+//  SHARE POOL — LIST A RIDE
+// ═══════════════════════════════════════════════════════
+async function postRide() {
+  if (!requireFB()) return;
+  const mobile=g('p-mobile'), pmin=g('p-price-min'), pmax=g('p-price-max'),
+        from=g('p-from'), to=g('p-to'), date=g('p-date'), time=g('p-time');
+  if (!mobile||!from||!to||!date||!time||!pmin||!pmax) { flash('pool-post-msg','⚠️ Please fill in all fields.',false); return; }
+  const expireTs=new Date(date+'T'+time+':00').getTime();
+  if (expireTs<=Date.now()) { flash('pool-post-msg','⚠️ Date & time must be in the future.',false); return; }
+  const btn=document.getElementById('postRideBtn');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span>Posting…';
+  try {
+    await fbPush(fbRef(DB,'rideOffers'), {mobile,priceMin:pmin,priceMax:pmax,from,to,date,time,expireTs,session:SESSION_KEY,postedAt:Date.now()});
+    flash('pool-post-msg','✅ Ride offer posted! It is now live for everyone. Auto-removes after '+fDate(date)+' at '+fTime(time)+'.',true);
+    ['p-mobile','p-price-min','p-price-max','p-from','p-to','p-date','p-time'].forEach(i=>document.getElementById(i).value='');
+  } catch(e){ flash('pool-post-msg','❌ Failed to post: '+e.message,false); }
+  btn.disabled=false; btn.innerHTML='<i class="fas fa-plus-circle me-2"></i>Post Ride Offer';
+}
+
+// Render only THIS session's rides in "My Ride Offers"
+function renderMyRides() {
+  const el=document.getElementById('my-rides-list');
+  const now=Date.now();
+  const mine=Object.entries(allRideOffers||{})
+    .filter(([,r])=>r.session===SESSION_KEY&&!isExpired(r));
+  if (!mine.length) { el.innerHTML='<div class="no-result">No ride offers posted in this session.</div>'; return; }
+  el.innerHTML=mine.map(([key,r])=>`
+    <div class="result-card">
+      <div class="result-card-top">
+        <div style="flex:1">
+          <h5><span class="badge-type offering me-2"><i class="fas fa-car-side"></i> Offering</span>${x(r.from)} → ${x(r.to)}</h5>
+          <div class="result-meta">
+            <span class="meta-item"><i class="fas fa-calendar"></i>${fDate(r.date)}</span>
+            <span class="meta-item"><i class="fas fa-clock"></i>${fTime(r.time)}</span>
+            <span class="badge-price">$${x(r.priceMin)}–$${x(r.priceMax)}</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn-del" onclick="deleteEntry('rideOffers','${key}')"><i class="fas fa-trash"></i> Remove</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// Auto-refresh "My Offers" when data changes
+fbOnValue = fbOnValue; // will be set after firebase-ready
+window.addEventListener('firebase-ready', ()=>{
+  fbOnValue(fbRef(DB,'rideOffers'),   ()=>renderMyRides());
+  fbOnValue(fbRef(DB,'rideRequests'), ()=>renderMyRequests());
+  fbOnValue(fbRef(DB,'accomList'),    ()=>renderMyAccom());
+  fbOnValue(fbRef(DB,'accomReq'),     ()=>renderMyAccomRequests());
+});
+
+async function deleteEntry(col, key) {
+  if (!requireFB()) return;
+  if (!confirm('Remove this listing?')) return;
+  try { await fbRemove(fbRef(DB,col+'/'+key)); }
+  catch(e){ alert('Could not remove: '+e.message); }
+}
+
+// ═══════════════════════════════════════════════════════
+//  SHARE POOL — LOOKING FOR A RIDE
+// ═══════════════════════════════════════════════════════
+async function postRideRequest() {
+  if (!requireFB()) return;
+  const mobile=g('lr-mobile'), bmin=g('lr-budget-min'), bmax=g('lr-budget-max'),
+        from=g('lr-from'), to=g('lr-to'), date=g('lr-date'), time=g('lr-time');
+  if (!mobile||!from||!to||!date||!time) { flash('pool-req-msg','⚠️ Please fill in all required fields.',false); return; }
+  const expireTs=new Date(date+'T'+time+':00').getTime();
+  if (expireTs<=Date.now()) { flash('pool-req-msg','⚠️ Date & time must be in the future.',false); return; }
+  const btn=document.getElementById('postRideReqBtn');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span>Posting…';
+  try {
+    await fbPush(fbRef(DB,'rideRequests'), {mobile,budgetMin:bmin,budgetMax:bmax,from,to,date,time,expireTs,session:SESSION_KEY,postedAt:Date.now()});
+    flash('pool-req-msg','✅ Ride request posted! All drivers can now see it. Auto-removes after '+fDate(date)+' at '+fTime(time)+'.',true);
+    ['lr-mobile','lr-budget-min','lr-budget-max','lr-from','lr-to','lr-date','lr-time'].forEach(i=>document.getElementById(i).value='');
+  } catch(e){ flash('pool-req-msg','❌ Failed to post: '+e.message,false); }
+  btn.disabled=false; btn.innerHTML='<i class="fas fa-hand-paper me-2"></i>Post Ride Request';
+}
+
+function renderMyRequests() {
+  const el=document.getElementById('my-requests-list');
+  const mine=Object.entries(allRideRequests||{}).filter(([,r])=>r.session===SESSION_KEY&&!isExpired(r));
+  if (!mine.length) { el.innerHTML='<div class="no-result">No ride requests posted in this session.</div>'; return; }
+  el.innerHTML=mine.map(([key,r])=>`
+    <div class="result-card request-card">
+      <div class="result-card-top">
+        <div style="flex:1">
+          <h5><span class="badge-type requesting me-2"><i class="fas fa-hand-paper"></i> Requesting</span>${x(r.from)} → ${x(r.to)}</h5>
+          <div class="result-meta">
+            <span class="meta-item"><i class="fas fa-calendar"></i>${fDate(r.date)}</span>
+            <span class="meta-item"><i class="fas fa-clock"></i>${fTime(r.time)}</span>
+            ${r.budgetMin||r.budgetMax?`<span class="badge-price coral">$${x(r.budgetMin||'?')}–$${x(r.budgetMax||'?')}</span>`:''}
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn-del" onclick="deleteEntry('rideRequests','${key}')"><i class="fas fa-trash"></i> Remove</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+//  SHARE POOL — FIND A RIDE (search Firebase data)
+// ═══════════════════════════════════════════════════════
+function searchRides() {
+  const from=g('u-from').toLowerCase(), to=g('u-to').toLowerCase(), date=g('u-date');
+  const now=Date.now();
+  const offerMatches=Object.entries(allRideOffers||{})
+    .filter(([,r])=>!isExpired(r)&&(!from||r.from.toLowerCase().includes(from))&&(!to||r.to.toLowerCase().includes(to))&&(!date||r.date===date))
+    .map(([k,r])=>({...r,_key:k}));
+  const reqMatches=Object.entries(allRideRequests||{})
+    .filter(([,r])=>!isExpired(r)&&(!from||r.from.toLowerCase().includes(from))&&(!to||r.to.toLowerCase().includes(to))&&(!date||r.date===date))
+    .map(([k,r])=>({...r,_key:k}));
+  const el=document.getElementById('pool-results');
+  if (!offerMatches.length&&!reqMatches.length) {
+    el.innerHTML=`<div class="no-result" style="margin-top:20px"><i class="fas fa-search fa-2x mb-2 d-block" style="color:var(--mid)"></i>No active listings found. Try different locations or check back later.</div>`;
+    return;
+  }
+  let html='';
+  if (offerMatches.length) {
+    html+=`<div class="results-section-title" style="color:var(--mid);margin-top:20px"><i class="fas fa-car-side me-2"></i>Available Rides (${offerMatches.length})</div>`;
+    html+=offerMatches.map(r=>`
+      <div class="result-card">
+        <div class="result-card-top">
+          <div style="flex:1">
+            <h5><span class="badge-type offering me-2"><i class="fas fa-car-side"></i> Offering</span>${x(r.from)} → ${x(r.to)}</h5>
+            <div class="result-meta">
+              <span class="meta-item"><i class="fas fa-calendar"></i>${fDate(r.date)}</span>
+              <span class="meta-item"><i class="fas fa-clock"></i>${fTime(r.time)}</span>
+              <span class="badge-price">$${x(r.priceMin)}–$${x(r.priceMax)}</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-chat" onclick="openChat('${r._key}','Ride Offer','${x(r.from)} → ${x(r.to)}',false)"><i class="fas fa-comment-dots"></i> Chat</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+  if (reqMatches.length) {
+    html+=`<div class="results-section-title" style="color:var(--coral);margin-top:${offerMatches.length?'10px':'20px'}"><i class="fas fa-hand-paper me-2"></i>People Looking for a Ride (${reqMatches.length})</div>`;
+    html+=reqMatches.map(r=>`
+      <div class="result-card request-card">
+        <div class="result-card-top">
+          <div style="flex:1">
+            <h5><span class="badge-type requesting me-2"><i class="fas fa-hand-paper"></i> Requesting</span>${x(r.from)} → ${x(r.to)}</h5>
+            <div class="result-meta">
+              <span class="meta-item"><i class="fas fa-calendar"></i>${fDate(r.date)}</span>
+              <span class="meta-item"><i class="fas fa-clock"></i>${fTime(r.time)}</span>
+              ${r.budgetMin||r.budgetMax?`<span class="badge-price coral">$${x(r.budgetMin||'?')}–$${x(r.budgetMax||'?')}</span>`:''}
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-chat" onclick="openChat('${r._key}','Ride Request','${x(r.from)} → ${x(r.to)}',false)"><i class="fas fa-comment-dots"></i> Chat</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+  el.innerHTML=html;
+}
+
+// ═══════════════════════════════════════════════════════
+//  ACCOMMODATION — LIST
+// ═══════════════════════════════════════════════════════
+async function postAccom() {
+  if (!requireFB()) return;
+  const mobile=g('a-mobile'), pmin=g('a-price-min'), pmax=g('a-price-max'),
+        address=g('a-address'), apt=g('a-apt'), city=g('a-city'),
+        state=g('a-state'), zip=g('a-zip'), rooms=g('a-rooms'),
+        avail=g('a-avail'), details=g('a-details');
+  if (!mobile||!pmin||!pmax||!address||!city||!state||!zip||!rooms||!avail) {
+    flash('accom-post-msg','⚠️ Please fill in all required fields (Apt is optional).',false,true); return;
+  }
+  const expireTs=new Date(avail+'T23:59:59').getTime();
+  if (expireTs<=Date.now()) { flash('accom-post-msg','⚠️ Available From must be a future date.',false,true); return; }
+  const btn=document.getElementById('postAccomBtn');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span>Posting…';
+  try {
+    await fbPush(fbRef(DB,'accomList'), {mobile,priceMin:pmin,priceMax:pmax,address,apt,city,state,zip,rooms,avail,expireTs,details,session:SESSION_KEY,postedAt:Date.now()});
+    flash('accom-post-msg','✅ Property listed! Visible to everyone now. Auto-removes after '+fDate(avail)+'.',true,true);
+    ['a-mobile','a-price-min','a-price-max','a-address','a-apt','a-city','a-state','a-zip','a-rooms','a-avail','a-details'].forEach(i=>document.getElementById(i).value='');
+  } catch(e){ flash('accom-post-msg','❌ Failed: '+e.message,false,true); }
+  btn.disabled=false; btn.innerHTML='<i class="fas fa-plus-circle me-2"></i>List Accommodation';
+}
+
+function renderMyAccom() {
+  const el=document.getElementById('my-accom-list');
+  const mine=Object.entries(allAccomList||{}).filter(([,a])=>a.session===SESSION_KEY&&!isExpired(a));
+  if (!mine.length) { el.innerHTML='<div class="no-result">No properties listed in this session.</div>'; return; }
+  el.innerHTML=mine.map(([key,a])=>{
+    const addr=[a.address,a.apt,a.city,a.state,a.zip].filter(Boolean).join(', ');
+    return `
+    <div class="result-card gold-card">
+      <div class="result-card-top">
+        <div style="flex:1">
+          <h5><span class="badge-type listing me-2"><i class="fas fa-building"></i> Listing</span>${x(a.city)}${a.state?', '+x(a.state):''}</h5>
+          <div class="result-meta">
+            <span class="meta-item"><i class="fas fa-map-marker-alt"></i>${x(addr)}</span>
+            <span class="meta-item"><i class="fas fa-bed"></i>${x(a.rooms)} room${a.rooms>1?'s':''}</span>
+            <span class="meta-item"><i class="fas fa-calendar-check"></i>From: ${fDate(a.avail)}</span>
+            <span class="badge-price gold">$${x(a.priceMin)}–$${x(a.priceMax)}</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn-del btn-edit gold-edit" onclick="deleteEntry('accomList','${key}')"><i class="fas fa-trash"></i> Remove</button>
+        </div>
+      </div>
+    </div>`; }).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+//  ACCOMMODATION — LOOKING FOR
+// ═══════════════════════════════════════════════════════
+async function postAccomRequest() {
+  if (!requireFB()) return;
+  const mobile=g('la-mobile'), bmin=g('la-budget-min'), bmax=g('la-budget-max'),
+        city=g('la-city'), rooms=g('la-rooms'), avail=g('la-avail'), details=g('la-details');
+  if (!mobile||!city||!rooms||!avail) { flash('accom-req-msg','⚠️ Please fill in all required fields.',false,true); return; }
+  const expireTs=new Date(avail+'T23:59:59').getTime();
+  if (expireTs<=Date.now()) { flash('accom-req-msg','⚠️ Needed From must be a future date.',false,true); return; }
+  const btn=document.getElementById('postAccomReqBtn');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span>Posting…';
+  try {
+    await fbPush(fbRef(DB,'accomReq'), {mobile,budgetMin:bmin,budgetMax:bmax,city,rooms,avail,expireTs,details,session:SESSION_KEY,postedAt:Date.now()});
+    flash('accom-req-msg','✅ Request posted! Property owners can now see it. Auto-removes after '+fDate(avail)+'.',true,true);
+    ['la-mobile','la-budget-min','la-budget-max','la-city','la-rooms','la-avail','la-details'].forEach(i=>document.getElementById(i).value='');
+  } catch(e){ flash('accom-req-msg','❌ Failed: '+e.message,false,true); }
+  btn.disabled=false; btn.innerHTML='<i class="fas fa-search-location me-2"></i>Post Accommodation Request';
+}
+
+function renderMyAccomRequests() {
+  const el=document.getElementById('my-accom-requests-list');
+  const mine=Object.entries(allAccomReq||{}).filter(([,a])=>a.session===SESSION_KEY&&!isExpired(a));
+  if (!mine.length) { el.innerHTML='<div class="no-result">No accommodation requests in this session.</div>'; return; }
+  el.innerHTML=mine.map(([key,a])=>`
+    <div class="result-card accom-request-card">
+      <div class="result-card-top">
+        <div style="flex:1">
+          <h5><span class="badge-type seeking me-2"><i class="fas fa-search-location"></i> Seeking</span>${x(a.city)}</h5>
+          <div class="result-meta">
+            <span class="meta-item"><i class="fas fa-bed"></i>${x(a.rooms)} room${a.rooms>1?'s':''} needed</span>
+            <span class="meta-item"><i class="fas fa-calendar-check"></i>Needed from: ${fDate(a.avail)}</span>
+            ${a.budgetMin||a.budgetMax?`<span class="badge-price coral">$${x(a.budgetMin||'?')}–$${x(a.budgetMax||'?')}</span>`:''}
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn-del" onclick="deleteEntry('accomReq','${key}')"><i class="fas fa-trash"></i> Remove</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+//  ACCOMMODATION — FIND
+// ═══════════════════════════════════════════════════════
+function searchAccom() {
+  const loc=g('au-location').toLowerCase(), rooms=parseInt(g('au-rooms'))||0;
+  const listMatches=Object.entries(allAccomList||{})
+    .filter(([,a])=>!isExpired(a)&&(!loc||(a.city.toLowerCase().includes(loc)||a.state.toLowerCase().includes(loc)||a.address.toLowerCase().includes(loc)))&&(!rooms||parseInt(a.rooms)>=rooms))
+    .map(([k,a])=>({...a,_key:k}));
+  const reqMatches=Object.entries(allAccomReq||{})
+    .filter(([,a])=>!isExpired(a)&&(!loc||a.city.toLowerCase().includes(loc))&&(!rooms||parseInt(a.rooms)>=rooms))
+    .map(([k,a])=>({...a,_key:k}));
+  const el=document.getElementById('accom-results');
+  if (!listMatches.length&&!reqMatches.length) {
+    el.innerHTML=`<div class="no-result" style="margin-top:20px"><i class="fas fa-building fa-2x mb-2 d-block" style="color:var(--gold)"></i>No active listings found. Try a different area or check back later.</div>`;
+    return;
+  }
+  let html='';
+  if (listMatches.length) {
+    html+=`<div class="results-section-title" style="color:var(--gold);margin-top:20px"><i class="fas fa-building me-2"></i>Available Accommodation (${listMatches.length})</div>`;
+    html+=listMatches.map(a=>{
+      const addr=[a.address,a.apt,a.city,a.state,a.zip].filter(Boolean).join(', ');
+      return `
+      <div class="result-card gold-card">
+        <div class="result-card-top">
+          <div style="flex:1">
+            <h5><span class="badge-type listing me-2"><i class="fas fa-building"></i> Listing</span>${x(a.city)}${a.state?', '+x(a.state):''}</h5>
+            <div class="result-meta">
+              <span class="meta-item"><i class="fas fa-map-marker-alt"></i>${x(addr)}</span>
+              <span class="meta-item"><i class="fas fa-bed"></i>${x(a.rooms)} room${a.rooms>1?'s':''} available</span>
+              <span class="meta-item"><i class="fas fa-calendar-check"></i>From: ${fDate(a.avail)}</span>
+              ${a.details?`<span class="meta-item"><i class="fas fa-info-circle"></i>${x(a.details)}</span>`:''}
+              <span class="badge-price gold">$${x(a.priceMin)}–$${x(a.priceMax)}</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-chat gold-chat" onclick="openChat('${a._key}','Accommodation','${x(a.city)}${a.state?', '+x(a.state):''}',true)"><i class="fas fa-comment-dots"></i> Chat</button>
+          </div>
+        </div>
+      </div>`; }).join('');
+  }
+  if (reqMatches.length) {
+    html+=`<div class="results-section-title" style="color:var(--mid);margin-top:${listMatches.length?'10px':'20px'}"><i class="fas fa-search-location me-2"></i>People Seeking Accommodation (${reqMatches.length})</div>`;
+    html+=reqMatches.map(a=>`
+      <div class="result-card accom-request-card">
+        <div class="result-card-top">
+          <div style="flex:1">
+            <h5><span class="badge-type seeking me-2"><i class="fas fa-search-location"></i> Seeking</span>${x(a.city)}</h5>
+            <div class="result-meta">
+              <span class="meta-item"><i class="fas fa-bed"></i>${x(a.rooms)} room${a.rooms>1?'s':''} needed</span>
+              <span class="meta-item"><i class="fas fa-calendar-check"></i>Needed from: ${fDate(a.avail)}</span>
+              ${a.budgetMin||a.budgetMax?`<span class="badge-price coral">$${x(a.budgetMin||'?')}–$${x(a.budgetMax||'?')}</span>`:''}
+              ${a.details?`<span class="meta-item"><i class="fas fa-info-circle"></i>${x(a.details)}</span>`:''}
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-chat" onclick="openChat('${a._key}','Accommodation Request','${x(a.city)}',false)"><i class="fas fa-comment-dots"></i> Chat</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+  el.innerHTML=html;
+}
+
+// ═══════════════════════════════════════════════════════
+//  CHAT
+// ═══════════════════════════════════════════════════════
+function toggleChat() {
+  chatOpen=!chatOpen;
+  document.getElementById('chatWindow').classList.toggle('open',chatOpen);
+  if (chatOpen) document.getElementById('chatBadge').style.display='none';
+}
+
+function openChat(chatId, type, label, isGold) {
+  activeChatId=chatId;
+  if (!chatLogs[chatId]) chatLogs[chatId]=[{role:'system',text:'Connected securely. The poster\'s contact details are private — all communication stays within YatraBandhu.'}];
+  const av=document.getElementById('chatAvatar');
+  av.className='chat-avatar'+(isGold?' gold-avatar':'');
+  av.innerHTML=`<i class="fas fa-${isGold?'building':'car-side'}"></i>`;
+  document.getElementById('chatTitle').textContent=type;
+  document.getElementById('chatSubtitle').textContent=label;
+  document.getElementById('chatInputRow').style.display='flex';
+  renderChatMessages();
+  chatOpen=true;
+  document.getElementById('chatWindow').classList.add('open');
+  document.getElementById('chatBadge').style.display='none';
+}
+
+function renderChatMessages() {
+  const el=document.getElementById('chatMessages');
+  if (!activeChatId||!chatLogs[activeChatId]) return;
+  el.innerHTML=chatLogs[activeChatId].map(m=>{
+    if (m.role==='system') return `<div class="msg system">${x(m.text)}</div>`;
+    return `<div class="msg ${m.role==='user'?'outgoing':'incoming'}">${x(m.text)}<div class="msg-time">${m.time||''}</div></div>`;
+  }).join('');
+  el.scrollTop=el.scrollHeight;
+}
+
+function sendChat() {
+  if (!activeChatId) return;
+  const input=document.getElementById('chatInput');
+  const text=input.value.trim(); if (!text) return;
+  const ts=()=>{const n=new Date();return n.getHours()+':'+String(n.getMinutes()).padStart(2,'0');};
+  chatLogs[activeChatId].push({role:'user',text,time:ts()});
+  input.value='';
+  renderChatMessages();
+  setTimeout(()=>{
+    const reps=['Thanks for reaching out! I\'ll get back to you shortly.','Hi! Yes, still available.','Great! Can you tell me more about what you need?','Thanks for your message — give me a moment.','Hello! Happy to help.'];
+    chatLogs[activeChatId].push({role:'poster',text:reps[Math.floor(Math.random()*reps.length)],time:ts()});
+    renderChatMessages();
+    if (!chatOpen){ document.getElementById('chatBadge').style.display='block'; }
+  },1000+Math.random()*800);
+}
+
+// Show connecting status until firebase-ready fires
+document.getElementById('fbStatus').className='connecting';
+setTimeout(()=>{
+  if (!fbReady) {
+    document.getElementById('fbStatus').className='error';
+    document.getElementById('fbStatus').textContent='⚠️ Could not connect to database. Make sure you have replaced the Firebase config placeholders in the HTML file — see instructions.';
+  }
+},8000);
+</script>
+</body>
+</html>
